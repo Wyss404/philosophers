@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:32:22 by hdruel            #+#    #+#             */
-/*   Updated: 2025/01/19 00:22:14 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/01/21 16:36:53 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	main(int argc, char **argv)
 {
-	t_philo p;
+	t_rules rules;
 
-	if (argc < 5)
+	if (argc <= 4 || argc >= 7)
 		help_msg();
-	if (init(argc, argv, &p) == 0)
-		clean_exit(&p, 1);
+	if (init(&rules, argv) == 1)
+		clean_exit(&rules, 1);
+	if (launch_routine(&rules) == 1)
+		clean_exit(&rules, 1);
 	return (0);
 }

@@ -6,55 +6,67 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:45:45 by hdruel            #+#    #+#             */
-/*   Updated: 2025/01/19 00:23:50 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/01/21 16:35:24 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	init_philo(t_philo *p)
+int	init_mutex(t_rules *rules)
 {
-	pthread_t *threads;
-	int verif;
 	int i;
 
-	threads = malloc(p->nb_philo * sizeof(pthread_t));
-	if (threads == NULL)
-        return (0);
-	i = -1;
-	while(++i < p->nb_philo)
+	i = rules->nb_philo;
+	while (--i >= 0)
 	{
-		verif = pthread_create(threads, NULL, routine, NULL);
-		if (verif != 0)
-		{
-			printf("Error creating thread\n");
-			free(threads);
-			return (0);
-		}
+		if (pthread_mutex_init(&(rules->forks[i]), NULL))
+			return (1);
 	}
-	i = -1;
-	while(++i < p->nb_philo)
-		pthread_join(threads[i], NULL);
-	free(threads);
-	return (1);
+	if (pthread_mutex_init(&(rules->writing), NULL))
+		return (1);
+	if (pthread_mutex_init(&(rules->meal_check), NULL))
+		return (1);
+	return (0);
 }
 
-int	init(int argc, char **argv, t_philo *p)
+int	init_philo(t_rules *rules)
 {
-	p->nb_philo = ft_atoi(argv[1]);
-	p->time_die = ft_atoi(argv[2]);
-	p->time_eat = ft_atoi(argv[3]);
-	p->time_sleep = ft_atoi(argv[4]);
-	p->nb_of_eat = 1;
-	if (argc == 6)
+	int i;
+
+	i = rules->nb_philo;
+	while (--i >= 0)
 	{
-		p->nb_of_eat = ft_atoi(argv[5]);
-		if (p->nb_of_eat == 0)
-			p->nb_of_eat = 1;
+		rules->philosophers[i].id = i;
+		rules->philosophers[i].x_ate = 0;
+		rules->philosophers[i].left_fork_id = i;
+		rules->philosophers[i].right_fork_id = (i + 1) % rules->nb_philo;
+		rules->philosophers[i].t_last_meal = 0;
+		rules->philosophers[i].rules = rules;
 	}
-	if (p->nb_philo < 2 || p->time_die < 1 || p->time_eat < 1)
-		return (0);
-	if (init_philo(p) == 0)
-		clean_exit(p, 0);
-	return (1);
+	return (0);
+}
+
+int	init(t_rules *rules, char **argv)
+{
+	rules->nb_philo = ft_atoi(argv[1]);
+	rules->time_die = ft_atoi(argv[2]);
+	rules->time_eat = ft_atoi(argv[3]);
+	rules->time_sleep = ft_atoi(argv[4]);
+	rules->all_ate = 0;
+	rules->dieded = 0;
+	if (rules->nb_philo < 2 || rules->time_die < 0 || rules->time_eat < 0
+		|| rules->time_sleep < 0 || rules->nb_philo > 250)
+		return (1);
+	if (argv[5])
+	{
+		rules->nb_of_eat = ft_atoi(argv[5]);
+		if (rules->nb_of_eat <= 0)
+			return (1);
+	}
+	else
+		rules->nb_of_eat = -1;
+	if (init_mutex(rules))
+		return (2);
+	init_philo(rules);
+	return (0);
 }

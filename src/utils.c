@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:26:55 by hdruel            #+#    #+#             */
-/*   Updated: 2025/01/19 00:10:45 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/01/21 16:32:33 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	help_msg(void)
 	exit(127);
 }
 
-void	clean_exit(t_philo *p, int help)
+void	clean_exit(t_rules *r, int help)
 {
-	p->nb_philo = 0;
-	p->time_die = 0;
-	p->time_eat = 0;
-	p->time_sleep = 0;
-	p->nb_of_eat = 0;
+	r->nb_philo = 0;
+	r->time_die = 0;
+	r->time_eat = 0;
+	r->time_sleep = 0;
+	r->nb_of_eat = 0;
 	if (help == 1)
 		help_msg();
 }

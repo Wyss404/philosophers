@@ -13,6 +13,7 @@ SRC_PATH	=	src/
 SRC			=	philo.c \
 				init.c \
 				utils.c \
+				utils2.c \
 				routine.c
 
 # Objects
