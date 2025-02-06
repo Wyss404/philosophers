@@ -17,19 +17,10 @@ int	main(int argc, char **argv)
 	t_rules rules;
 
 	if (argc <= 4 || argc >= 7)
-	{
-		help_msg();
-		return (1);
-	}
+		return (help_msg(1));
 	if (init(&rules, argv) == 1)
-	{
-		clean_exit(&rules, 1);
-		return (1);
-	}
+		return (clean_exit(&rules, 1, 1));
 	if (launch_routine(&rules) == 1)
-	{
-		clean_exit(&rules, 1);
-		return (1);
-	}
+		return (clean_exit(&rules, 1, 1));
 	return (0);
 }
