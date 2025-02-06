@@ -35,7 +35,7 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-void	help_msg(void)
+int	help_msg(int error)
 {
 	printf("\e[0;35m+=====================================================+\n");
 	printf("|=====================PHILOSOPHER=====================|\n");
@@ -49,9 +49,10 @@ void	help_msg(void)
 	printf("\e[0;34m|<number_of_times_each_philo_must_eat> (not obligatory)");
 	printf("\e[0;34m must be greater than \e[0;31m0\e[0m\n");
 	printf("\e[0;34m+================================================+\e[0m\n");
+	return (error);
 }
 
-void	clean_exit(t_rules *r, int help)
+int	clean_exit(t_rules *r, int help, int error)
 {
 	r->nb_philo = 0;
 	r->time_die = 0;
@@ -59,5 +60,5 @@ void	clean_exit(t_rules *r, int help)
 	r->time_sleep = 0;
 	r->nb_of_eat = 0;
 	if (help == 1)
-		help_msg();
+		return (help_msg(error));
 }
