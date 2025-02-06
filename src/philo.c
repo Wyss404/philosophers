@@ -22,8 +22,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (init(&rules, argv) == 1)
+	{
 		clean_exit(&rules, 1);
+		return (1);
+	}
 	if (launch_routine(&rules) == 1)
+	{
 		clean_exit(&rules, 1);
+		return (1);
+	}
 	return (0);
 }
