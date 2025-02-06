@@ -49,7 +49,6 @@ void	help_msg(void)
 	printf("\e[0;34m|<number_of_times_each_philo_must_eat> (not obligatory)");
 	printf("\e[0;34m must be greater than \e[0;31m0\e[0m\n");
 	printf("\e[0;34m+================================================+\e[0m\n");
-	exit(127);
 }
 
 void	clean_exit(t_rules *r, int help)
