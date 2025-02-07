@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:45:45 by hdruel            #+#    #+#             */
-/*   Updated: 2025/01/21 16:35:24 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/02/07 04:10:52 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	init_mutex(t_rules *rules)
 {
-	int i;
+	int	i;
 
 	i = rules->nb_philo;
 	while (--i >= 0)
-	{
 		if (pthread_mutex_init(&(rules->forks[i]), NULL))
 			return (1);
-	}
 	if (pthread_mutex_init(&(rules->writing), NULL))
 		return (1);
 	if (pthread_mutex_init(&(rules->meal_check), NULL))
@@ -31,7 +29,7 @@ int	init_mutex(t_rules *rules)
 
 int	init_philo(t_rules *rules)
 {
-	int i;
+	int	i;
 
 	i = rules->nb_philo;
 	while (--i >= 0)
@@ -54,8 +52,8 @@ int	init(t_rules *rules, char **argv)
 	rules->time_sleep = ft_atoi(argv[4]);
 	rules->all_ate = 0;
 	rules->dieded = 0;
-	if (rules->nb_philo < 2 || rules->time_die < 0 || rules->time_eat < 0
-		|| rules->time_sleep < 0 || rules->nb_philo > 250)
+	if (rules->nb_philo <= 0 || rules->time_die <= 0 || rules->time_eat <= 0
+		|| rules->time_sleep <= 0 || rules->nb_philo >= 251)
 		return (1);
 	if (argv[5])
 	{
@@ -65,8 +63,8 @@ int	init(t_rules *rules, char **argv)
 	}
 	else
 		rules->nb_of_eat = -1;
-	if (init_mutex(rules))
-		return (2);
+	if (init_mutex(rules) == 1)
+		return (1);
 	init_philo(rules);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:08:55 by hdruel            #+#    #+#             */
-/*   Updated: 2025/01/21 16:08:59 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/02/07 04:34:46 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ long long	time_diff(long long past, long long pres)
 	return (pres - past);
 }
 
-void		smart_sleep(long long time, t_rules *rules)
+void	smart_sleep(long long time, t_rules *rules)
 {
-	long long i;
+	long long	i;
 
 	i = timestamp();
 	while (!(rules->dieded))
@@ -38,15 +38,14 @@ void		smart_sleep(long long time, t_rules *rules)
 	}
 }
 
-void		action_print(t_rules *rules, int id, char *string)
+void	action_print(t_rules *rules, int id, char *string)
 {
 	pthread_mutex_lock(&(rules->writing));
 	if (!(rules->dieded))
 	{
-		printf("%lli ", timestamp() - rules->first_timestamp);
-		printf("%i ", id + 1);
+		printf("%lli ms, ", timestamp() - rules->first_timestamp);
+		printf("philosopher : %i, ", id + 1);
 		printf("%s\n", string);
 	}
 	pthread_mutex_unlock(&(rules->writing));
-	return ;
 }
