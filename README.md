@@ -1,13 +1,13 @@
 # Philosopher
-# 42 School — Threads & Mutexes
-# by hdruel
+## 42 School — Threads & Mutexes
+### by hdruel
 
-# Description
+## Description
 Philosopher is a concurrency project from the 42 curriculum. Its goal is to introduce the concepts of threads, mutexes, and synchronization by solving the classic Dining Philosophers Problem.
 
 The simulation features philosophers sitting at a round table, alternating between eating, thinking, and sleeping. Each philosopher must pick up two forks (shared with neighbors) to eat, and must not starve.
 
-# The project includes:
+## The project includes:
     • A simulation of N philosophers sitting around a table
     • Each philosopher is a thread running concurrently
     • Each fork between philosophers is protected by a mutex
@@ -22,7 +22,7 @@ The Dining Philosophers Problem is a classic concurrency challenge originally fo
     • Starvation (a philosopher never gets to eat)
     • Race conditions (unsynchronized access to shared data)
 
-# Threads vs Processes
+## Threads vs Processes
 
 Threads (used here)
 Processes (bonus)
@@ -39,20 +39,20 @@ Require semaphores for safety
 
 Threads are used in the mandatory part because philosophers need to share state (fork availability, death flag) efficiently. Processes are used in the bonus using semaphores.
 
-# Mutexes
+## Mutexes
 A mutex (mutual exclusion lock) ensures that only one thread accesses a shared resource at a time. In this project, mutexes protect:
     • Each fork — only one philosopher can hold it at a time
     • The print function — prevents interleaved output
     • The death flag — safely read and written across threads
     • Meal tracking variables — for accurate starvation checks
 
-# Deadlock Prevention
+## Deadlock Prevention
 To prevent deadlock (all philosophers holding one fork and waiting for the other), philosophers with an even index pick up the right fork first, while those with an odd index pick up the left fork first. This breaks the circular wait condition.
 
-# Time Management
+## Time Management
 All timing is handled with gettimeofday(), which provides microsecond precision. This is critical for accurately enforcing time_to_die, time_to_eat, and time_to_sleep thresholds.
 
-# Instructions
+## Instructions
 Prerequisites
     • GCC / Clang compiler
     • make
@@ -61,7 +61,7 @@ Prerequisites
 Compilation
 make
 
-# Launch the simulation
+## Launch the simulation
 Usage:
 ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep
         [number_of_times_each_philosopher_must_eat]
@@ -73,7 +73,7 @@ Arguments:
     • time_to_sleep (ms) — Time spent sleeping
     • [number_of_times_each_philosopher_must_eat] (optional) — Simulation ends when all reach this count
 
-# Examples
+## Examples
 5 philosophers, must not die
 ./philo 5 800 200 200
  
@@ -92,7 +92,7 @@ Expected output
 ...
 800 3 died
 
-Stop the simulation
+## Stop the simulation
 The simulation ends automatically when:
     • A philosopher dies
     • All philosophers have eaten the required number of times (if specified)
