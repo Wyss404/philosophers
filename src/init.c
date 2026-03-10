@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:45:45 by hdruel            #+#    #+#             */
-/*   Updated: 2025/02/07 04:10:52 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/02/11 23:13:08 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	init(t_rules *rules, char **argv)
 	rules->all_ate = 0;
 	rules->dieded = 0;
 	if (rules->nb_philo <= 0 || rules->time_die <= 0 || rules->time_eat <= 0
-		|| rules->time_sleep <= 0 || rules->nb_philo >= 251)
+		|| rules->time_sleep <= 0 || rules->nb_philo >= 201)
 		return (1);
 	if (argv[5])
 	{

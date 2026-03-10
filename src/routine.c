@@ -6,7 +6,7 @@
 /*   By: hdruel <hdruel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:02:10 by hdruel            #+#    #+#             */
-/*   Updated: 2025/02/07 04:37:42 by hdruel           ###   ########.fr       */
+/*   Updated: 2025/02/11 23:14:10 by hdruel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ void	*routine(void *void_philosopher)
 	philo = (t_philo *)void_philosopher;
 	rules = philo->rules;
 	if (philo->id % 2)
-		usleep(15000);
+		usleep(7500);
 	while (!(rules->dieded) || rules->all_ate)
 	{
 		philo_eats(philo);
 		if (rules->all_ate)
 			break ;
 		action_print(rules, philo->id, "is sleeping");
-		if (rules->all_ate)
-			break ;
 		smart_sleep(rules->time_sleep, rules);
 		if (rules->all_ate)
 			break ;
@@ -126,13 +124,6 @@ int	launch_routine(t_rules *rules)
 		phi[i].t_last_meal = timestamp();
 		i++;
 	}
-	// if (rules->nb_philo == 1)
-	// {
-	// 	i = 0;
-	// 	printf("0 ms, philosopher : 1, died because he was solo (he have only");
-	// 	printf(" one fork (he don't know eat with one fork))\n");
-	// 	return (0);
-	// }
 	death_checker(rules, rules->philosophers);
 	exit_launcher(rules, phi);
 	return (0);
